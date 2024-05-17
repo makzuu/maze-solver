@@ -1,5 +1,5 @@
 from tkinter import Tk, BOTH, Canvas
-from cell import Cell
+from maze import Maze
 
 class Window:
     def __init__(self, width, height):
@@ -27,15 +27,6 @@ class Window:
 
 if __name__ == "__main__":
     window = Window(800, 600)
-    c1 = Cell(window, has_right_wall=False)
-    c2 = Cell(window, has_left_wall=False, has_bottom_wall=False)
-    c3 = Cell(window, has_top_wall=False)
-    c1.draw(10, 10, 50, 50)
-    c2.draw(50, 10, 90, 50)
-    c3.draw(50, 50, 90, 90)
-
-    c1.draw_move(c2)
-    c2.draw_move(c3)
-    c3.draw_move(c2, undo=True)
+    Maze(0, 0, 12, 16, 50, 50, window)
 
     window.wait_for_close()
