@@ -12,26 +12,37 @@ class Cell:
         self.has_bottom_wall = has_bottom_wall
         self.win = win
 
-    def draw(self, x1, y1, x2, y2):
+    def draw(self, x1, y1, x2, y2, fill_color="#ccc", erase_color="#181818"):
         if self.win is None:
             return
         self.x1 = x1
         self.y1 = y1
         self.x2 = x2
         self.y2 = y2
-        fill_color = "#ccc"
         if self.has_left_wall:
             self.win.draw_line(Line(Point(self.x1, self.y1), Point(self.x1, self.y2)),
                                fill_color)
+        else:
+            self.win.draw_line(Line(Point(self.x1, self.y1), Point(self.x1, self.y2)),
+                               erase_color)
         if self.has_right_wall:
             self.win.draw_line(Line(Point(self.x2, self.y1), Point(self.x2, self.y2)),
                                fill_color)
+        else:
+            self.win.draw_line(Line(Point(self.x2, self.y1), Point(self.x2, self.y2)),
+                               erase_color)
         if self.has_top_wall:
             self.win.draw_line(Line(Point(self.x1, self.y1), Point(self.x2, self.y1)),
                                fill_color)
+        else:
+            self.win.draw_line(Line(Point(self.x1, self.y1), Point(self.x2, self.y1)),
+                               erase_color)
         if self.has_bottom_wall:
             self.win.draw_line(Line(Point(self.x1, self.y2), Point(self.x2, self.y2)),
                                fill_color)
+        else:
+            self.win.draw_line(Line(Point(self.x1, self.y2), Point(self.x2, self.y2)),
+                               erase_color)
 
     def center(self):
         width = self.x2 - self.x1
