@@ -1,11 +1,12 @@
 from time import sleep
 from cell import Cell
+import random
 
 class Maze:
     def __init__(self, x1, y1,
                  num_rows, num_cols,
                  cell_size_x, cell_size_y,
-                 win=None):
+                 win=None, seed=None):
         self.x1 = x1
         self.y1 = y1
         self.num_rows = num_rows
@@ -15,6 +16,8 @@ class Maze:
         self.win = win
         self._cells = []
         self._create_cells()
+        if seed is not None:
+            random.seed(seed)
 
     def _create_cells(self):
         for _ in range(self.num_cols):
@@ -51,3 +54,36 @@ class Maze:
         bottom_right_cell.has_bottom_wall = False
         self._draw_cell(i, j)
         self._draw_cell(w, z)
+
+    # TODO: create your own _break_walls_r method
+    def _break_walls_r(self, i, j):
+        self._cells[i][j].visited = True
+        while True:
+            to_visit = []
+            if i - 1 >= 0 and not self._cells[i-1][j].visited:
+                    to_visit.append((i-1, j))
+            if i + 1 < self.num_cols and not self._cells[i+1][j].visited:
+                    to_visit.append((i+1, j))
+            if j - 1 >= 0 and not self._cells[i][j-1].visited:
+                    to_visit.append((i, j-1))
+            if j + 1 < self.num_rows and not self._cells[i][j+1].visited:
+                    to_visit.append((i, j+1))
+
+            if len(to_visit) == 0:
+                self._draw_cell(i, j)
+                return
+
+            index = random.randrange(len(to_visit))
+            if to_visit[index][0] < i:
+                self._cells[i][j].has_left_wall = False
+            if to_visit[index][0] > i:
+                self._cells[i][j].has_right_wall = False
+            if to_visit[index][1] < j:
+                self._cells[i][j].has_top_wall = False
+            if to_visit[index][1] > j:
+                self._cells[i][j].has_bottom_wall = False
+
+            w, z = to_visit[index]
+            self._break_walls_r(w, z)
+
+
