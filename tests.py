@@ -37,32 +37,8 @@ class Tests(unittest.TestCase):
                 False
                 )
         self.assertEqual(
-                m1._cells[0][0].has_right_wall,
-                True
-                )
-        self.assertEqual(
-                m1._cells[0][0].has_bottom_wall,
-                True
-                )
-        self.assertEqual(
-                m1._cells[0][0].has_left_wall,
-                True
-                )
-        self.assertEqual(
                 m1._cells[m1.num_cols - 1][m1.num_rows - 1].has_bottom_wall,
                 False
-                )
-        self.assertEqual(
-                m1._cells[m1.num_cols - 1][m1.num_rows - 1].has_top_wall,
-                True
-                )
-        self.assertEqual(
-                m1._cells[m1.num_cols - 1][m1.num_rows - 1].has_right_wall,
-                True
-                )
-        self.assertEqual(
-                m1._cells[m1.num_cols - 1][m1.num_rows - 1].has_left_wall,
-                True
                 )
 
     def test_reset_cells_visited(self):
@@ -77,6 +53,28 @@ class Tests(unittest.TestCase):
         for i in range(num_cols):
             for j in range(num_rows):
                 self.assertEqual(m._cells[i][j].visited, False)
+
+    def test_break_walls_r(self):
+        r = Maze(0, 0, 2, 2, 50, 50, seed=0)
+        self.assertEqual(r._cells[0][0].has_left_wall, True)
+        self.assertEqual(r._cells[0][0].has_right_wall, False)
+        self.assertEqual(r._cells[0][0].has_top_wall, False)
+        self.assertEqual(r._cells[0][0].has_bottom_wall, False)
+
+        self.assertEqual(r._cells[0][1].has_left_wall, True)
+        self.assertEqual(r._cells[0][1].has_right_wall, False)
+        self.assertEqual(r._cells[0][1].has_top_wall, False)
+        self.assertEqual(r._cells[0][1].has_bottom_wall, True)
+
+        self.assertEqual(r._cells[1][0].has_left_wall, False)
+        self.assertEqual(r._cells[1][0].has_right_wall, True)
+        self.assertEqual(r._cells[1][0].has_top_wall, True)
+        self.assertEqual(r._cells[1][0].has_bottom_wall, True)
+
+        self.assertEqual(r._cells[1][1].has_left_wall, False)
+        self.assertEqual(r._cells[1][1].has_right_wall, True)
+        self.assertEqual(r._cells[1][1].has_top_wall, True)
+        self.assertEqual(r._cells[1][1].has_bottom_wall, False)
 
 
 if __name__ == "__main__":

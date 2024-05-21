@@ -28,8 +28,5 @@ class Window:
 if __name__ == "__main__":
     window = Window(800, 600)
     m = Maze(50, 50, 10, 14, 50, 50, window)
-    m._break_entrance_and_exit()
-    m._break_walls_r(1, 1)
-    m._reset_cells_visited()
 
     window.wait_for_close()
