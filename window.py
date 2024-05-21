@@ -1,5 +1,4 @@
-from tkinter import Tk, BOTH, Canvas
-from maze import Maze
+from tkinter import Tk, Canvas
 
 class Window:
     def __init__(self, width, height):
@@ -24,9 +23,3 @@ class Window:
 
     def draw_line(self, line, fill_color):
         line.draw(self.canvas, fill_color)
-
-if __name__ == "__main__":
-    window = Window(800, 600)
-    m = Maze(50, 50, 10, 14, 50, 50, window)
-
-    window.wait_for_close()
